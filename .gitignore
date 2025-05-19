@@ -1,0 +1,18 @@
+# Root .gitignore (myapp/.gitignore)
+
+# Ignore client and server dependencies
+client/node_modules/
+server/node_modules/
+
+# Build outputs
+client/dist/
+server/dist/
+server/build/
+
+# Env files
+client/.env
+server/.env
+.env
+
+# TypeScript
+*.tsbuildinfo
