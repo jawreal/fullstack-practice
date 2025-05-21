@@ -14,6 +14,7 @@ const token = jwt.sign({ userId: 7}, SECRET, {
 });
 
 const useLogin = (req: Request<{}, {}, Info>, res: Response) => {
+  console.log("useLogin works")
   const { username, password } = req.body;
   if(username === "jawreal23" && password === "070203"){
     res.cookie('token', token, {

@@ -1,4 +1,5 @@
-import { memo, KeyboardEvent, ChangeEvent, RefObject, useState, useCallback } from 'react';
+import { memo, useState, useCallback } from 'react';
+import type { KeyboardEvent, ChangeEvent, RefObject } from 'react';
 import Button from './Button';
 import { Eye, EyeOff } from 'lucide-react';
 

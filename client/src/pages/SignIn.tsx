@@ -1,11 +1,12 @@
-import { useState, useCallback, FormEvent, ChangeEvent } from 'react';
+import { useState, useCallback } from 'react';
+import type { FormEvent, ChangeEvent } from 'react';
 import Button from '../components/Button';
 import Inputbox from '../components/Inputbox';
 import { useNavigate } from 'react-router-dom';
 import { Mail, Lock } from 'lucide-react';
 
 type ResultType = {
-  token?: string;
+  message?: string;
 }
 
 

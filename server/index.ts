@@ -2,14 +2,16 @@ import express, { Express, Request, Response } from 'express';
 import router from './routes/userRoutes';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 const app: Express = express();
 const PORT = process.env.PORT || 5000;
 dotenv.config(); 
 
 app.use(express.json());
+app.use(cookieParser())
 app.use(cors({
   origin: 'http://localhost:5173',
-  methods: ['GET', 'POST', 'UPDATE', 'DELETE'], 
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
   allowedHeaders: ['Content-Type', 'Authorization'], 
   credentials: true, 
 })) 
