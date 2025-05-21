@@ -1,0 +1,68 @@
+import { useState, useCallback, FormEvent, ChangeEvent } from 'react';
+import Button from '../components/Button';
+import Inputbox from '../components/Inputbox';
+import { useNavigate } from 'react-router-dom';
+import { Mail, Lock } from 'lucide-react';
+
+type ResultType = {
+  token?: string;
+}
+
+
+const SignIn = () => {
+  const navigate = useNavigate();
+  const [data, setData] = useState<{ username: string; password: string }>({
+    username: "", 
+    password: "", 
+  });
+  
+  const handleUsername = useCallback((e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setData(prevData => ({
+     ...prevData, 
+     username: e.target.value
+    }))
+  }, [])
+  
+  const handlePass = useCallback((e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setData(prevData => ({
+     ...prevData, 
+     password: e.target.value
+    }))
+  }, [])
+  
+  const handleSubmit = useCallback(async(e: FormEvent<HTMLFormElement>): Promise<void> => {
+    e.preventDefault();
+    try{
+      const result = await fetch('http://localhost:3000/server/login', {
+        method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json', 
+        }, 
+        body: JSON.stringify(data), 
+        credentials: 'include', 
+      });
+      const jsonData: ResultType = result.status === 200 ? await result.json() : null
+      if (jsonData){
+        console.log(jsonData.message);
+        navigate('/home')
+      }else{
+        console.log("Please fill the input")
+        return 
+      }
+    }catch(err){
+      console.log("Error occured", err)
+    }
+  }, [data])
+  return(
+    <div className="w-full min-h-screen bg-gradient-to-b from-zinc-950 via-zinc-950 to-emerald-950 flex md:flex-row flex-col justify-center items-center gap-y-3 relative">
+       <form onSubmit={handleSubmit} className="w-full max-w-80 bg-zinc-900 border border-zinc-800 rounded-md flex flex-col items-center p-3 gap-y-3">
+           <span className="text-zinc-200 font-medium text-2xl">Sign in</span>
+           <Inputbox placeholder="your_unique_username02" icon={<Mail className="w-6 h-6 text-zinc-600" />} value={data?.username} onChange={handleUsername}/>
+           <Inputbox placeholder="••••••••••••••" icon={<Lock className="w-6 h-6 text-zinc-600" />} type="password" toggleType={true} value={data?.password} onChange={handlePass} />
+           <Button className="rounded-md p-2 bg-emerald-800 text-emerald-50 font-medium w-full p-3 active:bg-emerald-900" text="Sign In" type="submit" />
+       </form>
+    </div>
+    );
+};
+
+export default SignIn;
