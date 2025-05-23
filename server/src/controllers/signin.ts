@@ -9,12 +9,12 @@ type Info = {
 }
 
 const SECRET = process.env.JWT_SECRET as string;
-const token = jwt.sign({ userId: 7}, SECRET, {
+const token = jwt.sign({ userId: 7 }, SECRET, {
   expiresIn: '1h',
 });
 
-const useLogin = (req: Request<{}, {}, Info>, res: Response) => {
-  console.log("useLogin works")
+const signin = (req: Request<{}, {}, Info>, res: Response) => {
+  console.log("sign-in works")
   const { username, password } = req.body;
   if(username === "jawreal23" && password === "070203"){
     res.cookie('token', token, {
@@ -24,10 +24,10 @@ const useLogin = (req: Request<{}, {}, Info>, res: Response) => {
     maxAge: 3600000
     });
     console.log("Correct data");
-    res.status(200).json({ message: "Successully login"}); 
+    res.status(200).json({ message: "Successully sign-in"}); 
    }else{
      res.status(401).send("Incorrect credentials")
   }
 }
 
-export default useLogin;
+export default signin;

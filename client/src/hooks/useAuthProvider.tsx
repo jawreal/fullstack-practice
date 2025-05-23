@@ -1,35 +1,40 @@
 import { useState, createContext, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getSession } from '../services/getSession';
-import type { ReactNode } from 'react';
+
 
 interface JsonType {
   authenticated?: boolean;
+  refetch: () => void;
 }
 
 const AuthContext = createContext<JsonType | null>(null);
 
 export const AuthProvider = ({ children }: JSX.element ) => {
   const [auth, setAuth] = useState<JsonType | null>(null);
+  const location = useLocation();
   const navigate = useNavigate();
-  const { data, error, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ['auth'], 
     queryFn: getSession, 
+    staleTime: 5 * 60 * 1000, 
+    refetchOnMount: true,
   });
   
   useEffect(() => {
     if(!isLoading){
-       console.log("AuthProvider triggers", data.authenticated)
-       if(data?.authenticated === false){
-         navigate('/sign-in');
+       console.log(data)
+       setAuth(data)
+       if(data?.authenticated === false && !location.pathname.startsWith('/sign-in')){
+         navigate('/sign-in', { replace: true });
        }
-       setAuth(data?.authenticated)
+       if(data?.authenticated === true && location.pathname.startsWith('/sign-in')) navigate('/home', { replace: true })
     }
   }, [data, isLoading, navigate])
   
   return (
-    <AuthContext.Provider value={{ auth }}>
+    <AuthContext.Provider value={{ auth, refetch }}>
       { children } 
     </AuthContext.Provider>
     )

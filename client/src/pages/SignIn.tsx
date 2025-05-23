@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import type { FormEvent, ChangeEvent } from 'react';
 import Button from '../components/Button';
 import Inputbox from '../components/Inputbox';
+import { useAuthContext } from '../hooks/useAuthProvider';
 import { useNavigate } from 'react-router-dom';
 import { Mail, Lock } from 'lucide-react';
 
@@ -12,6 +13,7 @@ type ResultType = {
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const { refetch } = useAuthContext();
   const [data, setData] = useState<{ username: string; password: string }>({
     username: "", 
     password: "", 
@@ -34,7 +36,7 @@ const SignIn = () => {
   const handleSubmit = useCallback(async(e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     try{
-      const result = await fetch('http://localhost:3000/server/login', {
+      const result = await fetch('http://localhost:3000/server/sign-in', {
         method: 'POST', 
         headers: {
           'Content-Type': 'application/json', 
@@ -44,8 +46,9 @@ const SignIn = () => {
       });
       const jsonData: ResultType = result.status === 200 ? await result.json() : null
       if (jsonData){
+        refetch();
         console.log(jsonData.message);
-        navigate('/home')
+        //navigate('/home', { replace: true })
       }else{
         console.log("Please fill the input")
         return 

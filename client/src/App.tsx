@@ -8,6 +8,7 @@ const Home = lazy(() => import('./pages/Home'));
 const App = () => {
   return (
     <Router>
+     <AuthProvider> 
       <Routes> 
         <Route path="/sign-in" element={
           <Suspense fallback={<PageFallback />} >
@@ -15,13 +16,12 @@ const App = () => {
           </Suspense>
         } />
         <Route path="/home" element={
-        <AuthProvider>
           <Suspense fallback={<PageFallback />} >
            <Home />
           </Suspense>
-        </AuthProvider>
         } />
       </Routes>
+     </AuthProvider> 
     </Router>
     );
 };
