@@ -1,10 +1,16 @@
 import { Request, Response } from 'express';
 
 
-const signout = (_req: Request, res: Response) => {
-  console.log("Cookie clear")
-  res.clearCookie('token');
-  res.status(200).send('sign out')
+const signout = (req: Request, res: Response) => {
+  req.session.destroy((err: Error) => {
+    if(err){
+      console.log("Couldn't destroy the session")
+      res.status(500).send("Couldn't signout")
+      return
+    }
+    res.clearCookie('connect.sid');
+    res.status(200).send('Signout')
+  })
 };
 
 export default signout;
