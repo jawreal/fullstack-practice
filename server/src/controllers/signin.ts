@@ -32,6 +32,7 @@ const signin = (req: Request<{}, {}, Info>, res: Response) => {
   const { username, password } = req.body;
   if(username === "jawreal" && password === "1234"){
     (req.session as any).isAuthenticated = true;
+    (req.session as any).username = username;
     res.status(200).json({ authenticated: true })
     return
   }

@@ -44,13 +44,13 @@ const SignIn = () => {
         body: JSON.stringify(data), 
         credentials: 'include', 
       });
-      const jsonData: ResultType = result.status === 200 ? await result.json() : null
-      if (jsonData){
+      const jsonData: ResultType = await result.json() 
+      if (result.status === 200){
         refetch();
-        console.log(jsonData.message);
+        //console.log(jsonData)
         //navigate('/home', { replace: true })
       }else{
-        console.log("Please fill the input")
+        console.log("Message", jsonData)
         return 
       }
     }catch(err){

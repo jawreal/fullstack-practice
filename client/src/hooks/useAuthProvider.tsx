@@ -7,25 +7,26 @@ import { getSession } from '../services/getSession';
 interface JsonType {
   authenticated?: boolean;
   refetch: () => void;
+  username?: string;
 }
 
 const AuthContext = createContext<JsonType | null>(null);
 
 export const AuthProvider = ({ children }: JSX.element ) => {
-  const [auth, setAuth] = useState<JsonType | null>(null);
+  const [userData, setData] = useState<JsonType | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['auth'], 
     queryFn: getSession, 
     staleTime: 5 * 60 * 1000, 
-    refetchOnMount: true,
+    //refetchOnMount: true,
   });
   
   useEffect(() => {
     if(!isLoading){
        console.log(data)
-       setAuth(data)
+       setData(data)
        if(data?.authenticated === false && !location.pathname.startsWith('/sign-in')){
          navigate('/sign-in', { replace: true });
        }
@@ -34,7 +35,7 @@ export const AuthProvider = ({ children }: JSX.element ) => {
   }, [data, isLoading, navigate])
   
   return (
-    <AuthContext.Provider value={{ auth, refetch }}>
+    <AuthContext.Provider value={{ userData, refetch }}>
       { children } 
     </AuthContext.Provider>
     )
