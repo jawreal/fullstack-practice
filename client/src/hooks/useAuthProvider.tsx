@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }: JSX.element ) => {
     if(!isLoading){
        console.log(data)
        setData(data)
-       if(data?.authenticated === false && !location.pathname.startsWith('/sign-in')){
+       if(data?.authenticated === false && !location.pathname.startsWith('/sign-in') && !location.pathname.startsWith('/sign-up')){
          navigate('/sign-in', { replace: true });
        }
        if(data?.authenticated === true && location.pathname.startsWith('/sign-in')) navigate('/home', { replace: true })

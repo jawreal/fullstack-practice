@@ -3,6 +3,7 @@ import { lazy, Suspense } from 'react';
 import { AuthProvider } from './hooks/useAuthProvider';
 import PageFallback from './components/PageFallback';
 const SignIn = lazy(() => import('./pages/SignIn'));
+const SignUp = lazy(() => import('./pages/SignUp'));
 const Home = lazy(() => import('./pages/Home'));
 
 const App = () => {
@@ -15,6 +16,11 @@ const App = () => {
            <SignIn />
           </Suspense>
         } />
+        <Route path="/sign-up" element={
+          <Suspense fallback={<PageFallback />} >
+           <SignUp />
+          </Suspense>
+        } /> 
         <Route path="/home" element={
           <Suspense fallback={<PageFallback />} >
            <Home />

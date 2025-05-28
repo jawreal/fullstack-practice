@@ -4,6 +4,7 @@ declare namespace NodeJS {
     PORT?: string;
     JWT_SECRET?: string;
     SESSION_SECRET?: string;
+    MONGO_URI?: string;
     NODE_ENV?: 'development' | 'production';
   }
 }
