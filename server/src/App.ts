@@ -1,13 +1,15 @@
 import express, { Express, Request, Response } from 'express';
 import router from './routes/userRoutes';
 import dotenv from 'dotenv';
+dotenv.config();   
 import cors from 'cors';
+import mongoose from 'mongoose';
 //import cookieParser from 'cookie-parser';
 import errorHandler from './middleware/errorHandler';
 import session from 'express-session';
 const app: Express = express();
 const PORT = process.env.PORT || 5000;
-dotenv.config(); 
+const MONGO_URI = process.env.MONGO_URI as string;
 
 app.use(express.json());
 //app.use(cookieParser())
@@ -29,7 +31,8 @@ app.use(session({
   }, 
 })); 
 app.use(errorHandler);
-//cors are always first before the routes 
+//cors are always first before the routes
+mongoose.connect(MONGO_URI).then(() => console.log("Connected on mongodb atlas")).catch((err) => console.error("Error on connecting in mongodb atlas", err))
 app.use('/server', router);
 
 app.listen(PORT, () => {

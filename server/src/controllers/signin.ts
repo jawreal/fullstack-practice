@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 //import jwt from 'jsonwebtoken'; 
+import { comparePassword } from '../auth/hash';
+import User from '../models/user';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -8,35 +10,25 @@ interface Info {
   password: string;
 }
 
-/*
-JWT and cookie sending auth without using expressjs session 
-const SECRET = process.env.JWT_SECRET as string;
-const token = jwt.sign({ userId: 7 }, SECRET, {
-  expiresIn: '1h',
-});
-  if(username === "jawreal23" && password === "070203"){
-    res.cookie('token', token, {
-    httpOnly: true, 
-    secure: true, 
-    sameSite: 'strict', 
-    maxAge: 3600000
-    });
-    console.log("Correct data");
-    res.status(200).json({ message: "Successully sign-in"}); 
-   }else{
-     res.status(401).send("Incorrect credentials")
-  }*/
-
-const signin = (req: Request<{}, {}, Info>, res: Response) => {
-  console.log("sign-in works")
+const signin = async (req: Request<{}, {}, Info>, res: Response): Promise<void> => {
   const { username, password } = req.body;
-  if(username === "jawreal" && password === "1234"){
-    (req.session as any).isAuthenticated = true;
-    (req.session as any).username = username;
-    res.status(200).json({ authenticated: true })
-    return
+  try{
+    const user = await User.findOne({ username: username }, {_id: 0, username: 1, password: 1})
+    if(!user) throw new Error ("User doesn't exist")
+    //console.log("User data", user)
+    const isCorrect = await comparePassword(password, user?.password);
+    if(isCorrect && username === user?.username){
+      console.log("Correct credentials");
+      (req.session as any).isAuthenticated = true;
+      (req.session as any).username = username;
+      res.status(200).json({ authenticated: true })
+      return 
+    }
+    res.status(401).json({ authenticated: false }) 
+  }catch(err){
+    console.error("Error in sign-in", err)
+    res.status(401).json({ authenticated: false });
   }
-  res.status(401).json({ authenticated: false })
 }
 
 export default signin;

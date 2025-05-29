@@ -13,12 +13,13 @@ interface INPUTBOX_TYPE {
   onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   ref?: RefObject<HTMLInputElement | HTMLTextAreaElement | null>;
   toggleType?: boolean;
+  isError?: boolean;
 };
 
-const Inputbox = ({ placeholder, icon, type, isTransparent, value, onKeyDown, onChange, ref, toggleType }: INPUTBOX_TYPE) => {
+const Inputbox = ({ placeholder, icon, type, isTransparent, value, onKeyDown, onChange, ref, toggleType, isError = false}: INPUTBOX_TYPE) => {
   const [defType, setType] = useState<string | undefined>(type);
   const attributes: Partial<React.InputHTMLAttributes<HTMLInputElement> & React.TextareaHTMLAttributes<HTMLTextAreaElement>> = {
-    className: `${isTransparent ? `border-none outline-none bg-transparent py-2 text-zinc-200 flex-grow` : `bg-zinc-800 border text-zinc-200 focus:ring-1 border-zinc-700 focus:ring-emerald-500 focus:border-none focus:ring-emerald-600 outline-none focus:border-none w-full p-2 rounded-md ${icon ? "pl-11" : ""} mb-0`}`, 
+    className: `${isTransparent ? `border-none outline-none bg-transparent py-2 text-zinc-200 flex-grow` : `bg-zinc-800 border text-zinc-200 focus:ring-1 ${isError ? "border-red-500 focus:ring-red-500" : "border-zinc-700 focus:ring-emerald-600"} outline-none focus:border-none w-full p-2 rounded-md ${icon ? "pl-11" : ""} mb-0`}`, 
     placeholder: placeholder ?? "",
     value: value ?? "", 
     onKeyDown: onKeyDown ?? ((_: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {}), 
