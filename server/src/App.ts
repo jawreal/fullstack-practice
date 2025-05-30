@@ -1,4 +1,5 @@
-import express, { Express, Request, Response } from 'express';
+import 'module-alias/register';
+import express, { Express } from 'express';
 import router from './routes/userRoutes';
 import dotenv from 'dotenv';
 dotenv.config();   
@@ -30,10 +31,10 @@ app.use(session({
     maxAge: 1000 * 60 * 60,
   }, 
 })); 
-app.use(errorHandler);
 //cors are always first before the routes
 mongoose.connect(MONGO_URI).then(() => console.log("Connected on mongodb atlas")).catch((err) => console.error("Error on connecting in mongodb atlas", err))
 app.use('/server', router);
+app.use(errorHandler); //this always last 
 
 app.listen(PORT, () => {
   console.log("Listening in PORT", PORT)

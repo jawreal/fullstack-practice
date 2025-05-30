@@ -3,7 +3,7 @@ import { hashPassword } from '../auth/hash';
 import User from '../models/user';
 
 const signup = async (req: Request, res: Response): Promise<void> => {
-  const { username, confirm_pass } = req?.body;
+  const { username, confirm_pass } = req.body;
   const hashResult = await hashPassword(confirm_pass);
   try{
     const user = new User({ username: username, password: hashResult });
@@ -12,6 +12,7 @@ const signup = async (req: Request, res: Response): Promise<void> => {
     console.log("Success sign-up")
     res.status(200).json({ success: true }); 
   }catch(error){
+    console.error("Error in sign-up", error)
     res.status(401).json({ success: false }); 
   }
 };

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
-//import jwt from 'jsonwebtoken'; 
+import { Session } from 'express-session';
 import { comparePassword } from '../auth/hash';
+import { CustomSession } from '../shared/session';
 import User from '../models/user';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -19,8 +20,9 @@ const signin = async (req: Request<{}, {}, Info>, res: Response): Promise<void> 
     const isCorrect = await comparePassword(password, user?.password);
     if(isCorrect && username === user?.username){
       console.log("Correct credentials");
-      (req.session as any).isAuthenticated = true;
-      (req.session as any).username = username;
+      const session = req.session as Session & CustomSession;
+      session.isAuthenticated = true;
+      session.username = username;
       res.status(200).json({ authenticated: true })
       return 
     }
