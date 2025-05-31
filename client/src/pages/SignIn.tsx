@@ -5,6 +5,7 @@ import Inputbox from '../components/Inputbox';
 import { useAuthContext } from '../hooks/useAuthProvider';
 import { useNavigate } from 'react-router-dom';
 import { User, Lock } from 'lucide-react';
+import GoogleLogo from '../assets/GoogleLogo'
 
 type ResultType = {
   message?: string;
@@ -64,6 +65,8 @@ const SignIn = () => {
            <Inputbox placeholder="Type your username" icon={<User className="w-6 h-6 text-zinc-600" />} value={data?.username} onChange={handleUsername}/>
            <Inputbox placeholder="••••••••••••••" icon={<Lock className="w-6 h-6 text-zinc-600" />} type="password" toggleType={true} value={data?.password} onChange={handlePass} />
            <Button className="rounded-md p-2 bg-emerald-800 text-emerald-50 font-medium w-full p-3 active:bg-emerald-900" text="Sign In" type="submit" />
+           <div className="bg-zinc-800 w-full h-px my-2"></div>
+           <Button className="rounded-md p-2 bg-zinc-800 border border-zinc-700 text-zinc-200 font-medium w-full p-3 active:bg-zinc-700 active:bg-zinc-600 flex justify-center items-center gap-x-2" text="Continue with Google" icon={<GoogleLogo />}/>
        </form>
     </div>
     );

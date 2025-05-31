@@ -1,5 +1,5 @@
-import 'module-alias/register';
 import express, { Express } from 'express';
+import morgan from 'morgan'
 import router from './routes/userRoutes';
 import dotenv from 'dotenv';
 dotenv.config();   
@@ -20,6 +20,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'], 
   credentials: true, 
 }));
+app.use(morgan('dev'))
 app.use(session({
   secret: process.env.SESSION_SECRET as string, 
   resave: false, 

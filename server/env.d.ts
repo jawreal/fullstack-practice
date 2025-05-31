@@ -1,10 +1,13 @@
 // env.d.ts
 declare namespace NodeJS {
   interface ProcessEnv {
-    PORT?: string;
-    JWT_SECRET?: string;
-    SESSION_SECRET?: string;
-    MONGO_URI?: string;
-    NODE_ENV?: 'development' | 'production';
+    readonly PORT?: string;
+    readonly JWT_SECRET?: string;
+    readonly SESSION_SECRET?: string;
+    readonly MONGO_URI?: string;
+    readonly GOOGLE_CLIENT_ID?: string;
+    readonly GOOGLE_CLIENT_SECRET?: string;
+    readonly GOOGLE_CALLBACK_URL?: string;
+    //readonly NODE_ENV?: 'development' | 'production';
   }
 }
