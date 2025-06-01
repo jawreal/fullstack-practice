@@ -68,6 +68,7 @@ const SignUp = () => {
       console.log("Error", err)
     }
   }, [data, errorData])
+  
   return (
     <div className="w-full min-h-screen bg-gradient-to-b from-zinc-950 via-zinc-950 to-emerald-950 flex md:flex-row flex-col justify-center items-center gap-y-3 relative">
        <form onSubmit={submitData} className="w-full max-w-80 bg-zinc-900 border border-zinc-800 rounded-md flex flex-col items-center p-3 gap-y-3">
@@ -75,7 +76,7 @@ const SignUp = () => {
            <Inputbox placeholder="Create username" icon={<User className="w-6 h-6 text-zinc-600"/>} value={data?.username} onChange={handleUsername} isError={errorData}/>
            <Inputbox placeholder="Create password" icon={<Lock className="w-6 h-6 text-zinc-600" />} type="password" toggleType={true} value={data?.create_pass} onChange={handleCreatePass} isError={errorData}/>
            <Inputbox placeholder="Confirm password" icon={<Shield className="w-6 h-6 text-zinc-600" />} type="password" toggleType={true} value={data?.confirm_pass} onChange={handleConfirmPass} isError={errorData}/>
-           <Button className="rounded-md p-2 bg-emerald-800 text-emerald-50 font-medium w-full p-3 active:bg-emerald-900" text="Sign Up" type="submit" />
+           <Button className="rounded-md p-2 bg-emerald-800 text-emerald-50 font-medium w-full p-3 active:bg-emerald-900" text="Sign Up" type="submit"/>
        </form> 
     </div>
     );

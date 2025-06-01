@@ -1,4 +1,5 @@
 import express, { Express } from 'express';
+import passport from 'passport';
 import morgan from 'morgan'
 import router from './routes/userRoutes';
 import dotenv from 'dotenv';
@@ -20,7 +21,8 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'], 
   credentials: true, 
 }));
-app.use(morgan('dev'))
+app.use(passport.initialize());
+app.use(morgan('dev'));
 app.use(session({
   secret: process.env.SESSION_SECRET as string, 
   resave: false, 

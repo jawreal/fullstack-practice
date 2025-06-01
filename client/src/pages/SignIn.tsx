@@ -58,6 +58,10 @@ const SignIn = () => {
       console.log("Error occured", err)
     }
   }, [data])
+  
+  const handleGoogileSignin = useCallback(async () => {
+    window.location.href = 'http://localhost:3000/server/auth/google';
+  }, [])
   return(
     <div className="w-full min-h-screen bg-gradient-to-b from-zinc-950 via-zinc-950 to-emerald-950 flex md:flex-row flex-col justify-center items-center gap-y-3 relative">
        <form onSubmit={handleSubmit} className="w-full max-w-80 bg-zinc-900 border border-zinc-800 rounded-md flex flex-col items-center p-3 gap-y-3">
@@ -66,7 +70,7 @@ const SignIn = () => {
            <Inputbox placeholder="••••••••••••••" icon={<Lock className="w-6 h-6 text-zinc-600" />} type="password" toggleType={true} value={data?.password} onChange={handlePass} />
            <Button className="rounded-md p-2 bg-emerald-800 text-emerald-50 font-medium w-full p-3 active:bg-emerald-900" text="Sign In" type="submit" />
            <div className="bg-zinc-800 w-full h-px my-2"></div>
-           <Button className="rounded-md p-2 bg-zinc-800 border border-zinc-700 text-zinc-200 font-medium w-full p-3 active:bg-zinc-700 active:bg-zinc-600 flex justify-center items-center gap-x-2" text="Continue with Google" icon={<GoogleLogo />}/>
+           <Button className="rounded-md p-2 bg-zinc-800 border border-zinc-700 text-zinc-200 font-medium w-full p-3 active:bg-zinc-700 active:bg-zinc-600 flex justify-center items-center gap-x-2" text="Continue with Google" icon={<GoogleLogo />} onClick={handleGoogileSignin}/>
        </form>
     </div>
     );

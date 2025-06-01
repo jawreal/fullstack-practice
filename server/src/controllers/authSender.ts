@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 
 const authSender = (req: Request, res: Response) => {
-  res.status(200).json({ authenticated: true, username: (req.session as any).username });
+  const username = (req.session as any).username ?? (req.profile as any)?.displayName;
+  res.status(200).json({ authenticated: true, username: username });
 }
 
 export default authSender;
