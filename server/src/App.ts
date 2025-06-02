@@ -34,6 +34,7 @@ app.use(session({
     maxAge: 1000 * 60 * 60,
   }, 
 })); 
+app.use(passport.session()); //after express session 
 //cors are always first before the routes
 mongoose.connect(MONGO_URI).then(() => console.log("Connected on mongodb atlas")).catch((err) => console.error("Error on connecting in mongodb atlas", err))
 app.use('/server', router);
