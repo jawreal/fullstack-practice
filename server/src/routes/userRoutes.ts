@@ -11,7 +11,7 @@ import test from '../controllers/test';
 import checkUserData from '../middleware/checkUserData';
 import passport from 'passport'
 import verifySession from '../middleware/verifySession'; 
-import '../auth/google'
+import '../auth/strat'
 const router = express.Router();
 
 router.post('/sign-in', [body('').notEmpty().withMessage('All fields are required')], checkUserData, signin);
