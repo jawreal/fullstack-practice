@@ -14,6 +14,7 @@ const signin = (req: Request, res: Response,) => {
        return
      }
      
+     //this essential to make the user logged in
      req.login(user, (err) => {
       if (err) {
         res.status(500).send('Internal server error') 

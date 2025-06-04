@@ -5,7 +5,9 @@ import signout from '../controllers/signout';
 import signup from '../controllers/signup';
 import authSender from '../controllers/authSender';
 import googleAuth from '../controllers/googleAuth';
+import githubAuth from '../controllers/githubAuth';
 import googleCallback from '../controllers/googleCallback';
+import githubCallback from '../controllers/githubCallback';
 import googleFailure from '../controllers/googleFailure';
 import test from '../controllers/test';
 import checkUserData from '../middleware/checkUserData';
@@ -19,7 +21,9 @@ router.post('/sign-up', [body('').notEmpty().withMessage('All fields are require
 router.post('/sign-out', checkUserData, signout);
 router.get('/api/auth-check', verifySession, authSender)
 router.get('/auth/google', googleAuth);
+router.get('/auth/github', githubAuth);
 router.get('/auth/google/callback', googleCallback);
+router.get('/auth/github/callback', githubCallback);
 router.get('/auth/failure', googleFailure);
 router.get('/test', [query("person").notEmpty().escape()] , test)
 

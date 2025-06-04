@@ -5,8 +5,7 @@ import passport from 'passport';
 
 const googleCallback = [
   passport.authenticate('google', {
-    failureRedirect: '/auth/failure',
-    session: true,
+    failureRedirect: '/auth/failure'
   }),
   (req: Request, res: Response) => {
     const session = req.session as Session & CustomSession;

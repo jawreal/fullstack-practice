@@ -6,6 +6,7 @@ import { useAuthContext } from '../hooks/useAuthProvider';
 import { useNavigate } from 'react-router-dom';
 import { User, Lock } from 'lucide-react';
 import GoogleLogo from '../assets/GoogleLogo'
+import GitHubLogo from '../assets/GitHubLogo'
 
 type ResultType = {
   message?: string;
@@ -62,6 +63,10 @@ const SignIn = () => {
   const handleGoogileSignin = useCallback(async () => {
     window.location.href = 'http://localhost:3000/server/auth/google';
   }, [])
+  
+  const handleGithubSignin = useCallback(async () => {
+    window.location.href = 'http://localhost:3000/server/auth/github';
+  }, [])
   return(
     <div className="w-full min-h-screen bg-gradient-to-b from-zinc-950 via-zinc-950 to-emerald-950 flex md:flex-row flex-col justify-center items-center gap-y-3 relative">
        <form onSubmit={handleSubmit} className="w-full max-w-80 bg-zinc-900 border border-zinc-800 rounded-md flex flex-col items-center p-3 gap-y-3">
@@ -71,6 +76,7 @@ const SignIn = () => {
            <Button className="rounded-md p-2 bg-emerald-800 text-emerald-50 font-medium w-full p-3 active:bg-emerald-900" text="Sign In" type="submit" />
            <div className="bg-zinc-800 w-full h-px my-2"></div>
            <Button className="rounded-md p-2 bg-zinc-800 border border-zinc-700 text-zinc-200 font-medium w-full p-3 active:bg-zinc-700 active:bg-zinc-600 flex justify-center items-center gap-x-2" text="Continue with Google" icon={<GoogleLogo />} onClick={handleGoogileSignin}/>
+           <Button className="rounded-md p-2 bg-zinc-800 border border-zinc-700 text-zinc-200 font-medium w-full p-3 active:bg-zinc-700 active:bg-zinc-600 flex justify-center items-center gap-x-2" text="Continue with Github" icon={<GitHubLogo />} onClick={handleGithubSignin}/>
        </form>
     </div>
     );
