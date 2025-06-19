@@ -1,9 +1,10 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 const errorHandler = (
   err: Error, 
   _req: Request,
   res: Response,
+  next: NextFunction
 ) => {
   //console.log("an Error occured")
   console.error('Error:', err.message);

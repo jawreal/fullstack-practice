@@ -7,6 +7,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Outfit', 'sans-serif'], 
+      },
       zIndex: {
         '1000': 1000, 
         '1010': 1010

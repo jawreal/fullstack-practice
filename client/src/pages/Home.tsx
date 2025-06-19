@@ -1,11 +1,10 @@
-import { useCallback, FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useCallback } from 'react';
+import type { FormEvent } from 'react';
 import { useAuthContext } from '../hooks/useAuthProvider';
 import Button from '../components/Button';
 
 const Home = () => {
   const { userData, refetch } = useAuthContext();
-  const navigate = useNavigate();
   const handleSubmit = useCallback(async(e: FormEvent<HTMLFormElement>):Promise<void> => {
     e.preventDefault();
     try{

@@ -1,4 +1,5 @@
-import { useCallback, useState, useMemo, FormEvent, ChangeEvent } from 'react';
+import { useCallback, useState, useMemo } from 'react';
+import type { FormEvent, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Inputbox from '../components/Inputbox';
 import Button from '../components/Button';

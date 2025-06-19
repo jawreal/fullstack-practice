@@ -16,8 +16,24 @@ import verifySession from '../middleware/verifySession';
 import '../auth/strat'
 const router = express.Router();
 
-router.post('/sign-in', [body('').notEmpty().withMessage('All fields are required')], checkUserData, signin);
-router.post('/sign-up', [body('').notEmpty().withMessage('All fields are required')], signup);
+router.post(
+  '/sign-in',
+  [
+    body('username').notEmpty().withMessage('Username is required'),
+    body('password').notEmpty().withMessage('Password is required')
+  ],
+  checkUserData,
+  signin
+);
+
+router.post(
+  '/sign-up',
+  [
+    body('username').notEmpty().withMessage('Username is required'),
+    body('password').notEmpty().withMessage('Password is required')
+  ],
+  signup
+);
 router.post('/sign-out', checkUserData, signout);
 router.get('/api/auth-check', verifySession, authSender)
 router.get('/auth/google', googleAuth);

@@ -3,7 +3,6 @@ import type { FormEvent, ChangeEvent } from 'react';
 import Button from '../components/Button';
 import Inputbox from '../components/Inputbox';
 import { useAuthContext } from '../hooks/useAuthProvider';
-import { useNavigate } from 'react-router-dom';
 import { User, Lock } from 'lucide-react';
 import GoogleLogo from '../assets/GoogleLogo'
 import GitHubLogo from '../assets/GitHubLogo'
@@ -14,7 +13,6 @@ type ResultType = {
 
 
 const SignIn = () => {
-  const navigate = useNavigate();
   const { refetch } = useAuthContext();
   const [data, setData] = useState<{ username: string; password: string }>({
     username: "", 
