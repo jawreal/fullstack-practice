@@ -30,7 +30,7 @@ passport.use(new LocalStrategy({
   passwordField: 'password'
 }, async (username: string, password: string, done: Done) => {
   try{
-    const userData = await User.findOne({ username: username }, {_id: 0, username: 1, password: 1})
+    const userData = await User.findOne({ username: username }, { username: 1, password: 1})
     
     if(!userData) throw new Error ("User doesn't exist")
     

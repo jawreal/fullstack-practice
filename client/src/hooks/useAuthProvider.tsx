@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getSession } from '../services/getSession';
 
 interface JsonType {
+  id: string;
   authenticated?: boolean; 
   username?: string; 
 } 

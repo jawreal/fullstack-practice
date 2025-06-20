@@ -5,6 +5,7 @@ import PageFallback from './components/PageFallback';
 const SignIn = lazy(() => import('./pages/SignIn'));
 const SignUp = lazy(() => import('./pages/SignUp'));
 const Home = lazy(() => import('./pages/Home'));
+const Chat = lazy(() => import('./pages/Chat'));
 
 const App = () => {
   return (
@@ -24,6 +25,11 @@ const App = () => {
         <Route path="/home" element={
           <Suspense fallback={<PageFallback />} >
            <Home />
+          </Suspense>
+        } />
+        <Route path="/chat" element={
+          <Suspense fallback={<PageFallback />} >
+           <Chat />
           </Suspense>
         } />
       </Routes>
