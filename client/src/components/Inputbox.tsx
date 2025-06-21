@@ -42,7 +42,7 @@ const Inputbox = ({ placeholder, icon, type, isTransparent, value, onKeyDown, on
       ) : (
         <input ref={ref as RefObject<HTMLInputElement> | undefined} {...attributes} type={defType ?? "text"} />
       )}
-       {icon && <span className="absolute left-0 pt-2 pl-3">{icon}</span>}
+       {icon && <span className="absolute left-0 pt-2 pl-3 text-zinc-200">{icon}</span>}
        {toggleType && <Button className="absolute right-0 bottom-0 pb-2 pr-2" icon={defType === "password" ? <Eye className="w-6 h-6 dark:text-zinc-600 text-zinc-400" /> : <EyeOff className="w-6 h-6 dark:text-zinc-600 text-zinc-400" />} onClick={changeType}/>}
     </div>
     );
