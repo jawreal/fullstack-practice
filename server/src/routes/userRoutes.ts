@@ -13,6 +13,8 @@ import test from '../controllers/test';
 import checkUserData from '../middleware/checkUserData';
 import passport from 'passport'
 import verifySession from '../middleware/verifySession'; 
+import uploadMulter from '../middleware/uploadMulter'; 
+import uploadController from '../controllers/uploadController'; 
 import '../auth/strat'
 const router = express.Router();
 
@@ -41,6 +43,7 @@ router.get('/auth/github', githubAuth);
 router.get('/auth/google/callback', googleCallback);
 router.get('/auth/github/callback', githubCallback);
 router.get('/auth/failure', googleFailure);
+router.post('/upload-file', uploadMulter.single("file"), uploadController);
 router.get('/test', [query("person").notEmpty().escape()] , test)
 
 export default router;

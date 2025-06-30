@@ -6,6 +6,7 @@ const SignIn = lazy(() => import('./pages/SignIn'));
 const SignUp = lazy(() => import('./pages/SignUp'));
 const Home = lazy(() => import('./pages/Home'));
 const Chat = lazy(() => import('./pages/Chat'));
+const SendFile = lazy(() => import('./pages/SendFile'));
 
 const App = () => {
   return (
@@ -30,6 +31,11 @@ const App = () => {
         <Route path="/chat" element={
           <Suspense fallback={<PageFallback />} >
            <Chat />
+          </Suspense>
+        } />
+        <Route path="/send-file" element={
+          <Suspense fallback={<PageFallback />} >
+           <SendFile />
           </Suspense>
         } />
       </Routes>
