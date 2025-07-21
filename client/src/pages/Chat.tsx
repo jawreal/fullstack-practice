@@ -13,7 +13,7 @@ interface Chats {
 };
 
 const socket = io("http://localhost:3000", {
-  withCredentials: true, 
+  withCredentials: false, 
 });
 
 const Chat = () => {

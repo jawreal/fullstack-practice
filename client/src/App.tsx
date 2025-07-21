@@ -6,6 +6,7 @@ const SignIn = lazy(() => import('./pages/SignIn'));
 const SignUp = lazy(() => import('./pages/SignUp'));
 const Home = lazy(() => import('./pages/Home'));
 const Chat = lazy(() => import('./pages/Chat'));
+const Chatbot = lazy(() => import('./pages/Chatbot'));
 const SendFile = lazy(() => import('./pages/SendFile'));
 const Browse = lazy(() => import('./pages/Browse'));
 
@@ -34,13 +35,18 @@ const App = () => {
            <Chat />
           </Suspense>
         } />
+        <Route path="/chatbot" element={
+          <Suspense fallback={<PageFallback />} >
+           <Chatbot />
+          </Suspense>
+        } />
         <Route path="/send-file" element={
           <Suspense fallback={<PageFallback />} >
            <SendFile />
           </Suspense>
         } />
         <Route path="/browse" element={
-          <Suspense fallback={<PageFallback />} >
+          <Suspense fallback={<AuthProvider />} >
            <Browse />
           </Suspense>
         } />
