@@ -33,7 +33,10 @@ export const socketHandler = (io: Server) => {
       if(senderSocketId){
         io.to(senderSocketId).emit("private_message", messageData);
        }
-   });
+     });
+     socket.on("update-like", (id: number) => {
+      io.emit("receive-like", id);
+     }); 
   });
 };
 

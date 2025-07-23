@@ -3,13 +3,11 @@ import Inputbox from '../components/Inputbox';
 import Button from '../components/Button';
 import { SendHorizontal } from 'lucide-react';
 
-interface IMessage {
+interface IChatbot {
   from?: string;
   question?: string;
   answer?: string;
 }
-
-interface IChatbot extends Pick<IMessage, 'from' | 'question' | 'answer'> {};
 
 const Chatbot = () => {
   const chatbotFaqs: IChatbot[] = useMemo(() => [
@@ -19,7 +17,7 @@ const Chatbot = () => {
   { from: "chatbot", question: "Do you store my data?", answer: "No, I don’t store any personal data. This chat is only used to assist you during your session." },
   { from: "chatbot", question: "Can you learn from our conversation?", answer: "In this demo, I don’t learn from chats. But some advanced AI bots can improve over time." },
   ], []);
-  const [chats, setChats] = useState<IMessage[]>([]);
+  const [chats, setChats] = useState<IChatbot[]>([]);
   
   const handleQuestion = (qstn: string, aswr: string) => {
     setChats(prevMsg => [...prevMsg, {
@@ -39,7 +37,7 @@ const Chatbot = () => {
           <ul className="flex flex-col divide-y divide-zinc-800 self-start border border-zinc-800 rounded-md">
           {chatbotFaqs.map((val, idx) => (
              <li key={idx}>
-               <Button className={`w-[17rem] text-zinc-200 bg-zinc-900 active:bg-zinc-900 py-2 px-3 ${idx === 0 ? "rounded-t-md" : (idx === 4 ? "rounded-b-md"  : "")} break-words self-start text-start`} text={val.question} onClick={() => handleQuestion(val.question, val.answer)}/> 
+               <Button className={`w-[17rem] text-zinc-200 bg-zinc-900 active:bg-zinc-900/50 py-2 px-3 ${idx === 0 ? "rounded-t-md" : (idx === 4 ? "rounded-b-md"  : "")} break-words self-start text-start`} text={val.question} onClick={() => handleQuestion(val.question, val.answer)}/> 
              </li>
           ))}
           </ul>
