@@ -3,7 +3,6 @@ import { Profile as GoogleProfile, Strategy as GoogleStrategy } from 'passport-g
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as GithubSrategy, Profile as GithubProfile} from 'passport-github2'
 import dotenv from 'dotenv';
-import { comparePassword } from '../auth/hash';
 import User from '../models/user';
 dotenv.config();
 
@@ -31,11 +30,9 @@ passport.use(new LocalStrategy({
 }, async (username: string, password: string, done: Done) => {
   try{
     const userData = await User.findOne({ username: username }, { username: 1, password: 1})
-    
     if(!userData) throw new Error ("User doesn't exist")
-    
-    const isCorrect = await comparePassword(password, userData?.password);
-    if(isCorrect && username === userData?.username){
+    const isCorrect = await userData.validateCredentials(password, username);
+    if(isCorrect){
       const { password, _id, ...user } = userData;
       return done(null, user, { authenticated: true })
     }else{

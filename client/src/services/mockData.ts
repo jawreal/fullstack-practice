@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
 
+faker.seed(123);
 export interface Data {
  id?: string;
  name?: string;

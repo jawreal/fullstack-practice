@@ -33,7 +33,7 @@ const Browse = () => {
   };
   
   const handleLike = (id: string) => {
-    socket.emit("update-like", id)
+    socket.emit("update-like", { id: id, username: from_user })
   };
   
   useEffect(() => {
@@ -43,16 +43,17 @@ const Browse = () => {
   }, [from_user]);
  
   useEffect(() => {
-    const listener = (id: string) => {
+    const listener = (info: { id: number; username: string }) => {
       setData((prevData: Data[]) => data.map((person) => {
-        const correctId: boolean = person.id === id;
-        const alreadyLiked = person.likers.includes(from_user);
+        const correctId: boolean = person.id === info.id;
+        const alreadyLiked = person.likers.includes(info.username);
+        console.log(alreadyLiked);
         if(correctId && alreadyLiked){
           const filterUser = person.likers.filter((username: string) => username !== from_user);
           return {...person, likers: filterUser, likeTotal: person.likeTotal  - 1 };
         }
         if(correctId){
-          return {...person, likers: [...person.likers, from_user], likeTotal: +1 };
+          return {...person, likers: [...person.likers, info.username], likeTotal: person.likeTotal  + 1};
         }
         return person;
       }));

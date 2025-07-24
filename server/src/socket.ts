@@ -34,8 +34,8 @@ export const socketHandler = (io: Server) => {
         io.to(senderSocketId).emit("private_message", messageData);
        }
      });
-     socket.on("update-like", (id: number) => {
-      io.emit("receive-like", id);
+     socket.on("update-like", (data: { id: number; username: string}) => {
+      io.emit("receive-like", data);
      }); 
   });
 };
