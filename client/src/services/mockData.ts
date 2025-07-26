@@ -22,10 +22,10 @@ const data: Data[] = new Array(10).fill(0).map((_, i) => {
   avatar: faker.image.avatar() };
 });
 
-export const searchData = async (query: string) => {
+export const searchData = async (query: string | number) => {
   const result = await new Promise((resolve) => {
     setTimeout(() => {
-      const filteredData = data.filter(person => person.name.toLowerCase().includes(query.toLowerCase()));
+      const filteredData = data.filter(person => person.name.toLowerCase().includes(query.toLowerCase()) || person.id === Number(query));
       resolve(filteredData); 
     }, 500)
   });

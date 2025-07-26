@@ -9,6 +9,7 @@ const Chat = lazy(() => import('./pages/Chat'));
 const Chatbot = lazy(() => import('./pages/Chatbot'));
 const SendFile = lazy(() => import('./pages/SendFile'));
 const Browse = lazy(() => import('./pages/Browse'));
+const ViewPost = lazy(() => import('./pages/ViewPost'));
 
 const App = () => {
   return (
@@ -48,6 +49,11 @@ const App = () => {
         <Route path="/browse" element={
           <Suspense fallback={<AuthProvider />} >
            <Browse />
+          </Suspense>
+        } />
+        <Route path="/view-post/:id" element={
+          <Suspense fallback={<AuthProvider />} >
+           <ViewPost />
           </Suspense>
         } />
       </Routes>
