@@ -6,6 +6,13 @@ interface Message {
   message: string;
 };
 
+interface IComments {
+  com_id: string; 
+  avatar: string;
+  username: string;
+  comment: string;
+}
+
 const users: Record<string, string> = {};
 
 export const socketHandler = (io: Server) => {
@@ -34,9 +41,20 @@ export const socketHandler = (io: Server) => {
         io.to(senderSocketId).emit("private_message", messageData);
        }
      });
+     //like update listener 
      socket.on("update-like", (data: { id: number; username: string}) => {
       io.emit("receive-like", data);
      }); 
+     //joining comment section
+     socket.on("join-comment-sec", (postId: string) => {
+       socket.join(`post_${postId}`);
+       console.log(`Successfully joined the post_${postId} room`)
+     });
+     
+     //broadcasting on comment section room
+     socket.on("comment-sec-room", (data: IComments) => {
+       io.to(`post_${data.com_id}`).emit("receive-comment", data);
+     });
   });
 };
 

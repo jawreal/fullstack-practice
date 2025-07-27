@@ -38,7 +38,7 @@ const Inputbox = ({ placeholder, icon, type, isTransparent, value, onKeyDown, on
   return (
     <div className={`relative ${isTransparent ? "flex-grow max-w-32" : "w-full"}`}>
       {type === "textarea" ? (
-        <textarea {...attributes} rows={1} />
+        <textarea {...attributes} rows={4} />
       ) : (
         <input ref={ref as RefObject<HTMLInputElement> | undefined} {...attributes} type={defType ?? "text"} />
       )}
