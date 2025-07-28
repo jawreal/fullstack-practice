@@ -1,5 +1,5 @@
 import Inputbox from './Inputbox';
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState, useMemo } from 'react';
 import type { ChangeEvent } from 'react';
 import { useParams } from 'react-router-dom';
 import { faker } from '@faker-js/faker';
@@ -26,6 +26,7 @@ const ComSec = () => {
   const [userComment, setUserComment] = useState<string>('');
   const { userData: { username: from_user  }} = useAuthContext();
   const { id } = useParams();
+  const userAvatar = useMemo(() => faker.image.avatar(), [])
   
   useEffect(() => {
     if(id) socket.emit("join-comment-sec", id);
@@ -41,7 +42,7 @@ const ComSec = () => {
   const sendComment = () => {
     //socket
     socket.emit("comment-sec-room", {
-      com_id: id, avatar: faker.image.avatar(), username: from_user, comment: userComment });
+      com_id: id, avatar: userAvatar, username: from_user, comment: userComment });
       setUserComment('');
   };
   
@@ -60,7 +61,7 @@ const ComSec = () => {
     <div className="w-full flex flex-col px-1 gap-y-2 pb-1">
          <div className="w-full flex items-center gap-x-2">
            <Suspense fallback={<ImgFallback />}>
-             <Image url={faker.image.avatar()} className="w-8 h-8 rounded-full self-start mt-2" />
+             <Image url={userAvatar} className="w-8 h-8 rounded-full self-start mt-2" />
            </Suspense>
            <div className="w-full pt-2">
               <Inputbox value={userComment} onChange={handleCommentValue} placeholder="Write a comment..." type="textarea" /> 
